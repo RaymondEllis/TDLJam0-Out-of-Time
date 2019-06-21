@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
 	public Transform Visual;
 
+	public Colorizer Colorizer;
+
 	private Rigidbody2D rb;
 
 
@@ -29,5 +31,12 @@ public class PlayerController : MonoBehaviour
 		var jet = Input.GetAxis("Vertical");
 		if (jet > 0f)
 			rb.AddForce(Vector2.up * jet * JetPower * Time.fixedDeltaTime);
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		var potion = collision.gameObject.GetComponent<Potion>();
+		Colorizer.MixWith(potion);
+
 	}
 }

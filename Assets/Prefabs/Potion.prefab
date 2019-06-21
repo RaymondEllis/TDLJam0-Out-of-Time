@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7124599603832610042}
   - component: {fileID: 9029318249768671839}
+  - component: {fileID: 4845090190558249445}
   - component: {fileID: 2125500696862846700}
   - component: {fileID: 2655675820743760914}
   m_Layer: 0
@@ -48,8 +49,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65783cfb47256e42bd71064ff928d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 8034474651381448172}
-  Color: {r: 1, g: 0, b: 0, a: 1}
+  Colorizer: {fileID: 4845090190558249445}
+--- !u!114 &4845090190558249445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187742971190507417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e55b56b338f5f443a64d51b622010c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderers:
+  - {fileID: 8034474651381448172}
+  BaseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!61 &2125500696862846700
 BoxCollider2D:
   m_ObjectHideFlags: 0
