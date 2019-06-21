@@ -31,4 +31,23 @@ public class Potion : MonoBehaviour
 		t -= 0.01f * Time.deltaTime;
 		Material.color = CurrentColor;
 	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (!isActiveAndEnabled)
+			return;
+
+		var potion = collision.gameObject.GetComponent<Potion>();
+		if (potion && potion.isActiveAndEnabled)
+		{
+			var a = CurrentColor;
+			var b = potion.CurrentColor;
+			var mix = a + b;
+			Color = mix;
+			t = 1;
+			collision.gameObject.SetActive(false);
+			Destroy(collision.gameObject);
+			return;
+		}
+	}
 }
