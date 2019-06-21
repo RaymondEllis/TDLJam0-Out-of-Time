@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
 	public float Power;
 	public float JetPower;
+
+	public float Death = 0.1f;
 
 	public float RotateVisual;
 
@@ -25,6 +28,12 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate()
 	{
 		var c = Colorizer.CurrentColor;
+
+		if(c.b<Death || c.g < Death)
+		{
+			// ToDo : Proper death screen
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
 
 		transform.localScale = Vector3.one * c.b;
 
@@ -46,6 +55,5 @@ public class PlayerController : MonoBehaviour
 	{
 		var potion = collision.gameObject.GetComponent<Potion>();
 		Colorizer.MixWith(potion);
-
 	}
 }

@@ -6,8 +6,9 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Colorizer : MonoBehaviour
 {
-	public float Rate = 0.01f;
 	public Color BaseColor;
+	public float Rate = 0.01f;
+	public float AbsorbRate = 0.5f;
 
 	public MeshRenderer[] Renderers;
 	public Color CurrentColor => BaseColor;
@@ -65,13 +66,14 @@ public class Colorizer : MonoBehaviour
 
 		if (!absorb.IsEmpty())
 		{
-			var n = absorb.Subtract(0.5f * Time.deltaTime);
+			var n = absorb.Subtract(AbsorbRate * Time.deltaTime);
 			BaseColor += absorb - n;
 			absorb = n;
 		}
 
-		BaseColor = BaseColor.Subtract(Rate * Time.deltaTime);
+		BaseColor = BaseColor.Subtract((BaseColor.r == 0f ? 1 : .1f / BaseColor.r) * Rate * Time.deltaTime);
 		Material.color = BaseColor;
 	}
 
+	private static float ZeroIsOne(float f) => f != 0 ? f : 1;
 }

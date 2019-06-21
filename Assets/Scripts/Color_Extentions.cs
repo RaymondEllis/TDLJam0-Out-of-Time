@@ -32,3 +32,21 @@ public static class Color_Extentions
 			Mathf.Max(0, c.a - amount));
 	}
 }
+
+public struct ColorMagic
+{
+	private Color value;
+	private ColorMagic(Color c)
+	{
+		value = c;
+	}
+
+	public static implicit operator ColorMagic(Color c)
+	{
+		return new ColorMagic(c);
+	}
+	public static implicit operator Color(ColorMagic c)
+	{
+		return c.value;
+	}
+}
