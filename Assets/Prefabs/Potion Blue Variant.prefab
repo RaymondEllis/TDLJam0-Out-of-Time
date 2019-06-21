@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1187742971190507417, guid: 1d8a8cbd99aa0d749add8c719c279817,
+        type: 3}
+      propertyPath: m_Name
+      value: Potion Blue Variant
+      objectReference: {fileID: 0}
     - target: {fileID: 4845090190558249445, guid: 1d8a8cbd99aa0d749add8c719c279817,
         type: 3}
       propertyPath: BaseColor.r
@@ -21,11 +26,6 @@ PrefabInstance:
         type: 3}
       propertyPath: BaseColor.b
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1187742971190507417, guid: 1d8a8cbd99aa0d749add8c719c279817,
-        type: 3}
-      propertyPath: m_Name
-      value: Potion Blue Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7124599603832610042, guid: 1d8a8cbd99aa0d749add8c719c279817,
         type: 3}
@@ -81,11 +81,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034474651381448172, guid: 1d8a8cbd99aa0d749add8c719c279817,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9029318249768671839, guid: 1d8a8cbd99aa0d749add8c719c279817,
         type: 3}
