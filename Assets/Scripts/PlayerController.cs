@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
 	public float RotateVisual;
 
+	public UIScore UIScore;
+
 	public Transform Visual;
 
 	public Colorizer Colorizer;
@@ -20,9 +22,19 @@ public class PlayerController : MonoBehaviour
 
 	private bool faceRight = true;
 
+	private double timmer;
+
 	void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
+
+		Debug.Assert(UIScore != null);
+		Debug.Assert(Colorizer != null);
+	}
+
+	private void Update()
+	{
+		timmer += Time.deltaTime;
 	}
 
 	void FixedUpdate()
@@ -54,6 +66,18 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		var potion = collision.gameObject.GetComponent<Potion>();
-		Colorizer.MixWith(potion);
+		if (Colorizer.MixWith(potion))
+			return;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+
+		var exit = collision.gameObject.GetComponent<Exit>();
+		if (exit)
+		{
+			gameObject.SetActive(false);
+			UIScore.Show(timmer);
+		}
 	}
 }
