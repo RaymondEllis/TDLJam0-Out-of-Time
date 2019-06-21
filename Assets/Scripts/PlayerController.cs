@@ -24,18 +24,22 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		var move = Input.GetAxis("Horizontal") * Power;
-		rb.AddForce(Vector2.right * move * Time.fixedDeltaTime);
+		var c = Colorizer.CurrentColor;
+
+		transform.localScale = Vector3.one * c.b;
+
+		var move = Input.GetAxis("Horizontal");
+		rb.AddForce(c.g * move * Power * Vector2.right * Time.fixedDeltaTime);
 
 		if (move != 0f)
 			faceRight = move > 0f;
 
-		Visual.rotation = Quaternion.AngleAxis(RotateVisual * move * Mathf.Deg2Rad, Vector3.back);
+		Visual.rotation = Quaternion.AngleAxis(RotateVisual * move, Vector3.back);
 		Visual.localScale = new Vector3(faceRight ? 1f : -1f, 1f, 1f);
 
 		var jet = Input.GetAxis("Vertical");
 		if (jet > 0f)
-			rb.AddForce(Vector2.up * jet * JetPower * Time.fixedDeltaTime);
+			rb.AddForce(c.g * jet * JetPower * Vector2.up * Time.fixedDeltaTime);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
