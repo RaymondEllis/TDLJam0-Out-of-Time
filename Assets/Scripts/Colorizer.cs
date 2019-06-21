@@ -23,8 +23,10 @@ public class Colorizer : MonoBehaviour
 		Debug.Assert(Renderers.Length > 0, "Missing MeshRenderer!", this);
 
 
-		Material = new Material(Renderers[0].sharedMaterial);
-		Material.color = BaseColor;
+		Material = new Material(Renderers[0].sharedMaterial)
+		{
+			color = BaseColor
+		};
 
 		for (int i = 0; i < Renderers.Length; ++i)
 			Renderers[i].material = Material;
