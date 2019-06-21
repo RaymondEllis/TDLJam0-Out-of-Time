@@ -71,8 +71,9 @@ public class Colorizer : MonoBehaviour
 			BaseColor += absorb - n;
 			absorb = n;
 		}
-
-		BaseColor = BaseColor.Subtract((BaseColor.r == 0f ? 1 : .1f / BaseColor.r) * Rate * Time.deltaTime);
+		// ToDo: Move magic numbers.
+		var b = BaseColor.r < 0.5f ? 0.5f : BaseColor.r;
+		BaseColor = BaseColor.Subtract((0.2f / b) * Rate * Time.deltaTime);
 		Material.color = BaseColor;
 	}
 

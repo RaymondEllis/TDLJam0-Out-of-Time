@@ -21,8 +21,10 @@ public class UIScore : MonoBehaviour
 
 		NewBestTime.enabled = last < best;
 
-		if (best == -1 || last < best)
+		if (last < best)
 			Best = last;
+		else if (best == -1)
+			Best = best = last;
 
 		BestTime.text = best.ToString();
 		LastTime.text = last.ToString();
