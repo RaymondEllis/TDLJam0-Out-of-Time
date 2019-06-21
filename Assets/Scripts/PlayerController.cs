@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody2D rb;
 
+	private bool faceRight;
 
 	void Awake()
 	{
@@ -26,7 +27,11 @@ public class PlayerController : MonoBehaviour
 		var move = Input.GetAxis("Horizontal") * Power;
 		rb.AddForce(Vector2.right * move * Time.fixedDeltaTime);
 
+		if (move != 0f)
+			faceRight = move > 0f;
+
 		Visual.rotation = Quaternion.AngleAxis(RotateVisual * move * Mathf.Deg2Rad, Vector3.back);
+		Visual.localScale = new Vector3(faceRight ? 1f : -1f, 1f, 1f);
 
 		var jet = Input.GetAxis("Vertical");
 		if (jet > 0f)
