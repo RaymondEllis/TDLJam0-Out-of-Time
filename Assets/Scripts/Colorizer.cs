@@ -3,22 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Colorizer : MonoBehaviour
 {
 	public float Rate = 0.01f;
 	public Color BaseColor;
 
 	public MeshRenderer[] Renderers;
+	public Color CurrentColor => BaseColor;
 
 	private Material Material;
 
-	private float t;
+	private Queue<Color> absorbQueue;
+	private Color absorb;
 
-	public Color CurrentColor => Color.Lerp(Color.black, BaseColor, t);
 
 	public void Awake()
 	{
 		Debug.Assert(Renderers.Length > 0, "Missing mesh renderer!", this);
+
 
 		Material = new Material(Renderers[0].sharedMaterial);
 		Material.color = BaseColor;
@@ -26,7 +29,8 @@ public class Colorizer : MonoBehaviour
 		for (int i = 0; i < Renderers.Length; ++i)
 			Renderers[i].material = Material;
 
-		t = 1;
+		absorbQueue = new Queue<Color>();
+		absorb = Color.black;
 	}
 
 	/// <summary>
@@ -46,16 +50,28 @@ public class Colorizer : MonoBehaviour
 
 	public void MixWith(Color color)
 	{
-		BaseColor = CurrentColor + color;
-		t = 1;
+		absorbQueue.Enqueue(color);
 	}
 
 	public void Update()
 	{
-		if (t <= 0)
+#if UNITY_EDITOR
+		if (!UnityEditor.EditorApplication.isPlaying)
 			return;
+#endif
 
-		t -= Rate * Time.deltaTime;
-		Material.color = CurrentColor;
+		if (absorb.IsEmpty() && absorbQueue.Count > 0)
+			absorb = absorbQueue.Dequeue();
+
+		if (!absorb.IsEmpty())
+		{
+			var n = absorb.Subtract(0.5f * Time.deltaTime);
+			BaseColor += absorb - n;
+			absorb = n;
+		}
+
+		BaseColor = BaseColor.Subtract(Rate * Time.deltaTime);
+		Material.color = BaseColor;
 	}
+
 }
