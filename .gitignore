@@ -1,0 +1,29 @@
+# Unity
+Temp/*
+Obj/*
+UnityGenerated/*
+Library/*
+LightingData.asset*
+ReflectionProbe-*
+Assembly-CSharp*.csproj
+Assembly-CSharp*.sln
+
+# Visual Studio
+[Dd]ebug/
+[Rr]elease/
+.vs
+*.suo
+*.user
+*.vshost.exe
+
+# NuGet Packages Directory
+# packages/
+
+# blender
+*.blend1*
+*.blend2*
+*.blend3*
+*.blend4*
+
+# Project:
+
