@@ -7,7 +7,12 @@ public class PlayerController : MonoBehaviour
 	public float Power;
 	public float JetPower;
 
+	public float RotateVisual;
+
+	public Transform Visual;
+
 	private Rigidbody2D rb;
+
 
 	void Awake()
 	{
@@ -19,6 +24,7 @@ public class PlayerController : MonoBehaviour
 		var move = Input.GetAxis("Horizontal") * Power;
 		rb.AddForce(Vector2.right * move * Time.fixedDeltaTime);
 
+		Visual.rotation = Quaternion.AngleAxis(RotateVisual * move * Mathf.Deg2Rad, Vector3.back);
 
 		var jet = Input.GetAxis("Vertical");
 		if (jet > 0f)
