@@ -27,9 +27,8 @@ namespace UnityEditor
 	[CustomGridBrush(false, true, false, "Prefab Brush")]
 	public class PrefabBrush : GridBrush
 	{
-		private const float k_PerlinOffset = 100000f;
 		public GameObject[] m_Prefabs;
-		public float m_PerlinScale = 0.5f;
+		public int m_Index = 0;
 		public int m_Z;
 		private GameObject prev_brushTarget;
 		private Vector3Int prev_position;
@@ -53,7 +52,7 @@ namespace UnityEditor
 			if (brushTarget.layer == 31)
 				return;
 
-			int index = Mathf.Clamp(Mathf.FloorToInt(GetPerlinValue(position, m_PerlinScale, k_PerlinOffset) * m_Prefabs.Length), 0, m_Prefabs.Length - 1);
+			int index = Mathf.Clamp(m_Index, 0, m_Prefabs.Length - 1);
 			GameObject prefab = m_Prefabs[index];
 			GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
 			if (instance != null)
@@ -121,7 +120,7 @@ namespace UnityEditor
 		public override void OnPaintInspectorGUI()
 		{
 			m_SerializedObject.UpdateIfRequiredOrScript();
-			prefabBrush.m_PerlinScale = EditorGUILayout.Slider("Perlin Scale", prefabBrush.m_PerlinScale, 0.001f, 0.999f);
+			prefabBrush.m_Index = EditorGUILayout.IntSlider("Index to spawn", prefabBrush.m_Index, 0, prefabBrush.m_Prefabs.Length - 1);
 			prefabBrush.m_Z = EditorGUILayout.IntField("Position Z", prefabBrush.m_Z);
 
 			EditorGUILayout.PropertyField(m_Prefabs, true);
