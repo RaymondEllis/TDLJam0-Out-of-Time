@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody2D rb;
 
-	private bool faceRight;
+	private bool faceRight = true;
 
 	void Awake()
 	{
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 	{
 		var c = Colorizer.CurrentColor;
 
-		if(c.b<Death || c.g < Death)
+		if (c.b < Death || c.g < Death)
 		{
 			// ToDo : Proper death screen
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class Colorizer : MonoBehaviour
 {
 	public Color BaseColor;
@@ -21,7 +20,7 @@ public class Colorizer : MonoBehaviour
 
 	public void Awake()
 	{
-		Debug.Assert(Renderers.Length > 0, "Missing mesh renderer!", this);
+		Debug.Assert(Renderers.Length > 0, "Missing MeshRenderer!", this);
 
 
 		Material = new Material(Renderers[0].sharedMaterial);
@@ -73,6 +72,13 @@ public class Colorizer : MonoBehaviour
 
 		BaseColor = BaseColor.Subtract((BaseColor.r == 0f ? 1 : .1f / BaseColor.r) * Rate * Time.deltaTime);
 		Material.color = BaseColor;
+	}
+
+	public void OnDrawGizmos()
+	{
+		Gizmos.color = BaseColor;
+		Gizmos.matrix = transform.localToWorldMatrix;
+		Gizmos.DrawCube(Vector3.zero, new Vector3(.5f, .8f, .5f));
 	}
 
 	private static float ZeroIsOne(float f) => f != 0 ? f : 1;
